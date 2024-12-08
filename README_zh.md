@@ -6,16 +6,16 @@
   <img src="https://raw.githubusercontent.com/Tencent/HunyuanVideo/refs/heads/main/assets/logo.png"  height=100>
 </p>
 
-# HunyuanVideo: A Systematic Framework For Large Video Generation Model Training
+# HunyuanVideo: A Systematic Framework For Large Video Generation Model
 
 <div align="center">
   <a href="https://github.com/Tencent/HunyuanVideo"><img src="https://img.shields.io/static/v1?label=HunyuanVideo Code&message=Github&color=blue&logo=github-pages"></a> &ensp;
   <a href="https://aivideo.hunyuan.tencent.com"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Web&color=green&logo=github-pages"></a> &ensp;
   <a href="https://video.hunyuan.tencent.com"><img src="https://img.shields.io/static/v1?label=Playground&message=Web&color=green&logo=github-pages"></a> &ensp;
-  <a href="https://github.com/Tencent/HunyuanVideo/blob/main/assets/hunyuanvideo.pdf"><img src="https://img.shields.io/static/v1?label=Tech Report&message=Arxiv:HunyuanVideo&color=red&logo=arxiv"></a> &ensp;
+  <a href="https://arxiv.org/abs/2412.03603"><img src="https://img.shields.io/static/v1?label=Tech Report&message=Arxiv:HunyuanVideo&color=red&logo=arxiv"></a> &ensp;
   <a href="https://huggingface.co/tencent/HunyuanVideo"><img src="https://img.shields.io/static/v1?label=HunyuanVideo&message=HuggingFace&color=yellow"></a> &ensp; &ensp;
   <a href="https://huggingface.co/tencent/HunyuanVideo-PromptRewrite"><img src="https://img.shields.io/static/v1?label=HunyuanVideo-PromptRewrite&message=HuggingFace&color=yellow"></a> &ensp; &ensp;
-  
+
  [![Replicate](https://replicate.com/zsxkib/hunyuan-video/badge)](https://replicate.com/zsxkib/hunyuan-video)
 </div>
 <p align="center">
@@ -23,11 +23,12 @@
 </p>
 
 
+
 -----
 
 本仓库包含了 HunyuanVideo 项目的 PyTorch 模型定义、预训练权重和推理/采样代码。参考我们的项目页面 [project page](https://aivideo.hunyuan.tencent.com) 查看更多内容。
 
-> [**HunyuanVideo: A Systematic Framework For Large Video Generation Model Training**](https://github.com/Tencent/HunyuanVideo/blob/main/assets/hunyuanvideo.pdf) <br>
+> [**HunyuanVideo: A Systematic Framework For Large Video Generation Model**](https://arxiv.org/abs/2412.03603) <br>
 
 ## 🎥 作品展示
 <div align="center">
@@ -37,6 +38,7 @@
 注：由于 GitHub 的政策限制，上面的视频质量被大幅压缩。你可以从 [这里](https://aivideo.hunyuan.tencent.com/download/HunyuanVideo/material) 下载高质量版本。
 
 ## 🔥🔥🔥 更新!!
+* 2024年12月03日: 🤗 开源 HunyuanVideo 多卡并行推理代码，由[xDiT](https://github.com/xdit-project/xDiT)提供。
 * 2024年12月03日: 🤗 开源 HunyuanVideo 文生视频的推理代码和模型权重。
 
 ## 📑 开源计划
@@ -44,16 +46,18 @@
 - HunyuanVideo (文生视频模型)
   - [x] 推理代码
   - [x] 模型权重 
-  - [ ] Penguin Video 基准测试集
-  - [ ] Gradio
+  - [x] 多GPU序列并行推理（GPU 越多，推理速度越快）
+  - [ ] Penguin Video 基准测试集 
+  - [ ] Web Demo (Gradio) 
   - [ ] ComfyUI
   - [ ] Diffusers 
+  - [ ] 多GPU PipeFusion并行推理 (更低显存需求)
 - HunyuanVideo (图生视频模型)
   - [ ] 推理代码 
   - [ ] 模型权重 
 
 ## 目录
-- [HunyuanVideo: A Systematic Framework For Large Video Generation Model Training](#hunyuanvideo--a-systematic-framework-for-large-video-generation-model-training)
+- [HunyuanVideo: A Systematic Framework For Large Video Generation Model](#hunyuanvideo-a-systematic-framework-for-large-video-generation-model)
   - [🎥 作品展示](#-作品展示)
   - [🔥🔥🔥 更新!!](#-更新)
   - [📑 开源计划](#-开源计划)
@@ -67,14 +71,19 @@
     - [**Prompt 改写**](#prompt-改写)
   - [📈 能力评估](#-能力评估)
   - [📜 运行配置](#-运行配置)
-  - [🛠️ 安装和依赖](#-安装和依赖)
+  - [🛠️ 安装和依赖](#️-安装和依赖)
     - [Linux 安装指引](#linux-安装指引)
   - [🧱 下载预训练模型](#-下载预训练模型)
   - [🔑 推理](#-推理)
     - [使用命令行](#使用命令行)
     - [更多配置](#更多配置)
+  - [🚀 使用 xDiT 实现多卡并行推理](#-使用-xdit-实现多卡并行推理)
+    - [安装与 xDiT 兼容的依赖项](#安装与-xdit-兼容的依赖项)
+    - [使用命令行](#使用命令行-1)
   - [🔗 BibTeX](#-bibtex)
+  - [🧩 使用 HunyuanVideo 的项目](#-使用-hunyuanvideo-的项目)
   - [致谢](#致谢)
+  - [Star 趋势](#star-趋势)
 ---
 
 ## **摘要**
@@ -157,13 +166,13 @@ Prompt 改写模型可以直接使用 [Hunyuan-Large](https://github.com/Tencent
 
 下表列出了运行 HunyuanVideo 模型使用文本生成视频的推荐配置（batch size = 1）：
 
-|     模型      | 分辨率<br/>(height/width/frame) | 去噪步数 | 峰值显存  |
-|:--------------:|:--------------------------------:|:--------------:|:----------------:|
-| HunyuanVideo   |         720px1280px129f          |       30       |       60G        |
-| HunyuanVideo   |          544px960px129f          |       30       |       45G        |
+|     模型      | 分辨率<br/>(height/width/frame) | 峰值显存  |
+|:--------------:|:--------------------------------:|:----------------:|
+| HunyuanVideo   |         720px1280px129f          |       60G        |
+| HunyuanVideo   |          544px960px129f          |       45G        |
 
 * 本项目适用于使用 NVIDIA GPU 和支持 CUDA 的设备
-  * 本项目在单张 H800/H20 GPU 上进行了测试
+  * 模型在单张 80G GPU 上测试
   * 运行 720px1280px129f 的最小显存要求是 60GB，544px960px129f 的最小显存要求是 45GB。
 * 测试操作系统：Linux
 
@@ -182,34 +191,30 @@ cd HunyuanVideo
 我们推理使用 CUDA 11.8 或 12.0+ 的版本。
 
 ```shell
-# 1. 准备 conda 环境
+# 1. Prepare conda environment
 conda env create -f environment.yml
 
-# 2. 激活环境
+# 2. Activate the environment
 conda activate HunyuanVideo
 
-# 3. 安装 pip 依赖
+# 3. Install pip dependencies
 python -m pip install -r requirements.txt
 
-# 4. 安装 flash attention v2 用于加速 (要求 CUDA 11.8 或更高)
+# 4. Install flash attention v2 for acceleration (requires CUDA 11.8 or above)
+python -m pip install ninja
 python -m pip install git+https://github.com/Dao-AILab/flash-attention.git@v2.5.9.post1
 ```
 
-另外，我们提供了一个预构建的 Docker 镜像 [docker_hunyuanvideo](https://aivideo.hunyuan.tencent.com/download/HunyuanVideo/hunyuan_video_cu12.tar)。
-
+另外，我们提供了一个预构建的 Docker 镜像，可以使用如下命令进行拉取和运行。
 ```shell
-# 1.使用下面的链接下载 Docker 镜像 tar 包 (用于 CUDA 12).
-wget https://aivideo.hunyuan.tencent.com/download/HunyuanVideo/hunyuan_video_cu12.tar
+# 用于 CUDA 11
+docker pull hunyuanvideo/hunyuanvideo:cuda_11
+docker run -itd --gpus all --init --net=host --uts=host --ipc=host --name hunyuanvideo --security-opt=seccomp=unconfined --ulimit=stack=67108864 --ulimit=memlock=-1 --privileged hunyuanvideo/hunyuanvideo:cuda_11
 
-# 2. 导入 docker tar 包然后打印镜像的元信息 (用于 CUDA 12).
-docker load -i hunyuan_video.tar
-
-docker image ls
-
-# 3. 启动容器
-docker run -itd --gpus all --init --net=host --uts=host --ipc=host --name hunyuanvideo --security-opt=seccomp=unconfined --ulimit=stack=67108864 --ulimit=memlock=-1 --privileged  docker_image_tag
+# 用于 CUDA 12
+docker pull hunyuanvideo/hunyuanvideo:cuda_12
+docker run -itd --gpus all --init --net=host --uts=host --ipc=host --name hunyuanvideo --security-opt=seccomp=unconfined --ulimit=stack=67108864 --ulimit=memlock=-1 --privileged hunyuanvideo/hunyuanvideo:cuda_12
 ```
-
 
 ## 🧱 下载预训练模型
 
@@ -234,8 +239,6 @@ python3 sample_video.py \
     --infer-steps 50 \
     --prompt "A cat walks on the grass, realistic style." \
     --flow-reverse \
-    --flow-shift 7.0 \
-    --seed 0 \
     --use-cpu-offload \
     --save-path ./results
 ```
@@ -259,21 +262,131 @@ python3 sample_video.py \
 |     `--save-path`      | ./results |     保存路径      |
 
 
+## 🚀 使用 xDiT 实现多卡并行推理
+
+[xDiT](https://github.com/xdit-project/xDiT) 是一个针对多 GPU 集群的扩展推理引擎，用于扩展 Transformers（DiTs）。
+它成功为各种 DiT 模型（包括 mochi-1、CogVideoX、Flux.1、SD3 等）提供了低延迟的并行推理解决方案。该存储库采用了 [Unified Sequence Parallelism (USP)](https://arxiv.org/abs/2405.07719) API 用于混元视频模型的并行推理。
+
+### 安装与 xDiT 兼容的依赖项
+
+```
+# 1. 创建一个空白的 conda 环境
+conda create -n hunyuanxdit python==3.10.9
+conda activate hunyuanxdit
+
+# 2. 使用 CUDA 11.8 安装 PyTorch 组件
+conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0  pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# 3. 安装 pip 依赖项
+python -m pip install -r requirements_xdit.txt
+```
+
+您可以跳过上述步骤，直接拉取预构建的 Docker 镜像，这个镜像是从 [docker/Dockerfile_xDiT](./docker/Dockerfile_xDiT) 构建的
+
+```
+docker pull thufeifeibear/hunyuanvideo:latest
+```
+
+### 使用命令行
+
+例如，可用如下命令使用8张GPU卡完成推理
+
+```bash
+cd HunyuanVideo
+
+torchrun --nproc_per_node=8 sample_video_parallel.py \
+    --video-size 1280 720 \
+    --video-length 129 \
+    --infer-steps 50 \
+    --prompt "A cat walks on the grass, realistic style." \
+    --flow-reverse \
+    --seed 42 \
+    --ulysses_degree 8 \
+    --ring_degree 1 \
+    --save-path ./results
+```
+
+可以配置`--ulysses-degree`和`--ring-degree`来控制并行配置，可选参数如下。
+
+<details>
+<summary>支持的并行配置 (点击查看详情)</summary>
+
+|     --video-size     | --video-length | --ulysses-degree x --ring-degree | --nproc_per_node |
+|----------------------|----------------|----------------------------------|------------------|
+| 1280 720 或 720 1280 | 129            | 8x1,4x2,2x4,1x8                  | 8                |
+| 1280 720 或 720 1280 | 129            | 1x5                              | 5                |
+| 1280 720 或 720 1280 | 129            | 4x1,2x2,1x4                      | 4                |
+| 1280 720 或 720 1280 | 129            | 3x1,1x3                          | 3                |
+| 1280 720 或 720 1280 | 129            | 2x1,1x2                          | 2                |
+| 1104 832 或 832 1104 | 129            | 4x1,2x2,1x4                      | 4                |
+| 1104 832 或 832 1104 | 129            | 3x1,1x3                          | 3                |
+| 1104 832 或 832 1104 | 129            | 2x1,1x2                          | 2                |
+| 960 960              | 129            | 6x1,3x2,2x3,1x6                  | 6                |
+| 960 960              | 129            | 4x1,2x2,1x4                      | 4                |
+| 960 960              | 129            | 3x1,1x3                          | 3                |
+| 960 960              | 129            | 1x2,2x1                          | 2                |
+| 960 544 或 544 960   | 129            | 6x1,3x2,2x3,1x6                  | 6                |
+| 960 544 或 544 960   | 129            | 4x1,2x2,1x4                      | 4                |
+| 960 544 或 544 960   | 129            | 3x1,1x3                          | 3                |
+| 960 544 或 544 960   | 129            | 1x2,2x1                          | 2                |
+| 832 624 或 624 832   | 129            | 4x1,2x2,1x4                      | 4                |
+| 624 832 或 624 832   | 129            | 3x1,1x3                          | 3                |
+| 832 624 或 624 832   | 129            | 2x1,1x2                          | 2                |
+| 720 720              | 129            | 1x5                              | 5                |
+| 720 720              | 129            | 3x1,1x3                          | 3                |
+
+</details>
+
+<p align="center">
+<table align="center">
+<thead>
+<tr>
+    <th colspan="4">在 8xGPU上生成1280x720 (129 帧 50 步)的时耗 (秒)  </th>
+</tr>
+<tr>
+    <th>1</th>
+    <th>4</th>
+    <th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th>1904.08</th>
+    <th>514.08</th>
+    <th>337.58</th>
+</tr>
+
+</tbody>
+</table>
+</p>
+
+
 ## 🔗 BibTeX
-如果您认为 [HunyuanVideo](https://github.com/Tencent/HunyuanVideo/blob/main/assets/hunyuanvideo.pdf) 给您的研究和应用带来了一些帮助，可以通过下面的方式来引用:
+如果您认为 [HunyuanVideo](https://arxiv.org/abs/2412.03603) 给您的研究和应用带来了一些帮助，可以通过下面的方式来引用:
 
 ```BibTeX
 @misc{kong2024hunyuanvideo,
       title={HunyuanVideo: A Systematic Framework For Large Video Generative Models}, 
       author={Weijie Kong, Qi Tian, Zijian Zhang, Rox Min, Zuozhuo Dai, Jin Zhou, Jiangfeng Xiong, Xin Li, Bo Wu, Jianwei Zhang, Kathrina Wu, Qin Lin, Aladdin Wang, Andong Wang, Changlin Li, Duojun Huang, Fang Yang, Hao Tan, Hongmei Wang, Jacob Song, Jiawang Bai, Jianbing Wu, Jinbao Xue, Joey Wang, Junkun Yuan, Kai Wang, Mengyang Liu, Pengyu Li, Shuai Li, Weiyan Wang, Wenqing Yu, Xinchi Deng, Yang Li, Yanxin Long, Yi Chen, Yutao Cui, Yuanbo Peng, Zhentao Yu, Zhiyu He, Zhiyong Xu, Zixiang Zhou, Zunnan Xu, Yangyu Tao, Qinglin Lu, Songtao Liu, Dax Zhou, Hongfa Wang, Yong Yang, Di Wang, Yuhong Liu, and Jie Jiang, along with Caesar Zhong},
       year={2024},
-      archivePrefix={arXiv},
+      archivePrefix={arXiv preprint arXiv:2412.03603},
       primaryClass={cs.CV}
 }
 ```
 
+
+
+## 🧩 使用 HunyuanVideo 的项目
+
+如果您的项目中有开发或使用 HunyuanVideo，欢迎告知我们。
+
+- ComfyUI (支持F8推理和Video2Video生成): [ComfyUI-HunyuanVideoWrapper](https://github.com/kijai/ComfyUI-HunyuanVideoWrapper) by [Kijai](https://github.com/kijai)
+
+
+
 ## 致谢
-HunyuanVideo 的开源离不开诸多开源工作，这里我们特别感谢 [SD3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), [FLUX](https://github.com/black-forest-labs/flux), [Llama](https://github.com/meta-llama/llama), [LLaVA](https://github.com/haotian-liu/LLaVA), [Xtuner](https://github.com/InternLM/xtuner), [diffusers](https://github.com/huggingface/diffusers) and [huggingface](https://huggingface.co) 的开源工作和探索。另外，我们也感谢腾讯混元多模态团队对 HunyuanVideo 适配多种文本编码器的支持。
+
+HunyuanVideo 的开源离不开诸多开源工作，这里我们特别感谢 [SD3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), [FLUX](https://github.com/black-forest-labs/flux), [Llama](https://github.com/meta-llama/llama), [LLaVA](https://github.com/haotian-liu/LLaVA), [Xtuner](https://github.com/InternLM/xtuner), [diffusers](https://github.com/huggingface/diffusers) and [HuggingFace](https://huggingface.co) 的开源工作和探索。另外，我们也感谢腾讯混元多模态团队对 HunyuanVideo 适配多种文本编码器的支持。
 
 
 ## Star 趋势
