@@ -15,17 +15,19 @@
 </div>
 <div align="center">
   <a href="https://arxiv.org/abs/2412.03603"><img src="https://img.shields.io/static/v1?label=Tech Report&message=Arxiv&color=red"></a> &ensp;
-  <a href="https://aivideo.hunyuan.tencent.com/hunyuanvideo.pdf"><img src="https://img.shields.io/static/v1?label=Tech Report&message=High Quality Version (~350M)&color=red"></a>
+  <a href="https://aivideo.hunyuan.tencent.com/hunyuanvideo.pdf"><img src="https://img.shields.io/static/v1?label=Tech Report&message=High-Quality Version (~350M)&color=red"></a>
 </div>
 <div align="center">
   <a href="https://huggingface.co/tencent/HunyuanVideo"><img src="https://img.shields.io/static/v1?label=HunyuanVideo&message=HuggingFace&color=yellow"></a> &ensp;
+  <a href="https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video"><img src="https://img.shields.io/static/v1?label=HunyuanVideo&message=Diffusers&color=yellow"></a> &ensp;
   <a href="https://huggingface.co/tencent/HunyuanVideo-PromptRewrite"><img src="https://img.shields.io/static/v1?label=HunyuanVideo-PromptRewrite&message=HuggingFace&color=yellow"></a>
+
 
  [![Replicate](https://replicate.com/zsxkib/hunyuan-video/badge)](https://replicate.com/zsxkib/hunyuan-video)
 </div>
 
 <p align="center">
-    👋 Join our <a href="assets/WECHAT.md" target="_blank">WeChat</a> and <a href="https://discord.gg/GpARqvrh" target="_blank">Discord</a> 
+    👋 Join our <a href="assets/WECHAT.md" target="_blank">WeChat</a> and <a href="https://discord.gg/V8V6JK4f" target="_blank">Discord</a> 
 </p>
 <p align="center">
 
@@ -36,15 +38,32 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
 > [**HunyuanVideo: A Systematic Framework For Large Video Generation Model**](https://arxiv.org/abs/2412.03603) <be>
 
 
+
+## 🔥🔥🔥 News!!
+
+* Dec 18, 2024: 🏃‍♂️ We release the [FP8 model weights](https://huggingface.co/tencent/HunyuanVideo/blob/main/hunyuan-video-t2v-720p/transformers/mp_rank_00_model_states_fp8.pt) of HunyuanVideo to save more GPU memory.
+* Dec 17, 2024: 🤗 HunyuanVideo has been integrated into [Diffusers](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video).
+* Dec 7, 2024: 🚀 We release the parallel inference code for HunyuanVideo powered by [xDiT](https://github.com/xdit-project/xDiT).
+* Dec 3, 2024: 👋 We release the inference code and model weights of HunyuanVideo. [Download](https://github.com/Tencent/HunyuanVideo/blob/main/ckpts/README.md).
+
+
+
 ## 🎥 Demo
+
 <div align="center">
   <video src="https://github.com/user-attachments/assets/22440764-0d7e-438e-a44d-d0dad1006d3d" width="70%" poster="./assets/video_poster.png"> </video>
 </div>
 
 
-## 🔥🔥🔥 News!!
-* Dec 7, 2024: 🚀 We release the parallel inference code for HunyuanVideo powered by [xDiT](https://github.com/xdit-project/xDiT).
-* Dec 3, 2024: 🤗 We release the inference code and model weights of HunyuanVideo.
+## 🧩 Community Contributions
+
+If you develop/use HunyuanVideo in your projects, welcome to let us know.
+- ComfyUI (FP8 Inference, V2V and IP2V Generation): [ComfyUI-HunyuanVideoWrapper](https://github.com/kijai/ComfyUI-HunyuanVideoWrapper) by [Kijai](https://github.com/kijai)
+- FastVideo (Consistency Distilled Model): [FastVideo](https://github.com/hao-ai-lab/FastVideo) by [Hao AI Lab](https://hao-ai-lab.github.io/)
+- HunyuanVideo-gguf (GGUF Version and Quantization): [HunyuanVideo-gguf](https://huggingface.co/city96/HunyuanVideo-gguf) by [city96](https://huggingface.co/city96)
+
+
+
 
 ## 📑 Open-source Plan
 
@@ -53,7 +72,8 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
   - [x] Checkpoints
   - [x] Multi-gpus Sequence Parallel inference (Faster inference speed on more gpus)
   - [x] Web Demo (Gradio)
-  - [ ] Diffusers 
+  - [x] Diffusers 
+  - [x] FP8 Quantified weight
   - [ ] Penguin Video Benchmark
   - [ ] ComfyUI
   - [ ] Multi-gpus PipeFusion inference (Low memory requirements)
@@ -61,10 +81,13 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
   - [ ] Inference 
   - [ ] Checkpoints 
 
+
+
 ## Contents
 - [HunyuanVideo: A Systematic Framework For Large Video Generation Model](#hunyuanvideo-a-systematic-framework-for-large-video-generation-model)
   - [🎥 Demo](#-demo)
   - [🔥🔥🔥 News!!](#-news)
+  - [🧩 Community Contributions](#-community-contributions)
   - [📑 Open-source Plan](#-open-source-plan)
   - [Contents](#contents)
   - [**Abstract**](#abstract)
@@ -85,8 +108,9 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
     - [More Configurations](#more-configurations)
   - [🚀 Parallel Inference on Multiple GPUs by xDiT](#-parallel-inference-on-multiple-gpus-by-xdit)
     - [Using Command Line](#using-command-line-1)
+  - [🚀  FP8 Inference](#--fp8-inference)
+    - [Using Command Line](#using-command-line-2)
   - [🔗 BibTeX](#-bibtex)
-  - [🧩 Projects that use HunyuanVideo](#-projects-that-use-hunyuanvideo)
   - [Acknowledgements](#acknowledgements)
   - [Star History](#star-history)
 ---
@@ -95,6 +119,8 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
 We present HunyuanVideo, a novel open-source video foundation model that exhibits performance in video generation that is comparable to, if not superior to, leading closed-source models. In order to train HunyuanVideo model, we adopt several key technologies for model learning, including data curation, image-video joint model training, and an efficient infrastructure designed to facilitate large-scale model training and inference. Additionally, through an effective strategy for scaling model architecture and dataset, we successfully trained a video generative model with over 13 billion parameters, making it the largest among all open-source models. 
 
 We conducted extensive experiments and implemented a series of targeted designs to ensure high visual quality, motion diversity, text-video alignment, and generation stability. According to professional human evaluation results, HunyuanVideo outperforms previous state-of-the-art models, including Runway Gen-3, Luma 1.6, and 3 top-performing Chinese video generative models. By releasing the code and weights of the foundation model and its applications, we aim to bridge the gap between closed-source and open-source video foundation models. This initiative will empower everyone in the community to experiment with their ideas, fostering a more dynamic and vibrant video generation ecosystem. 
+
+
 
 ## **HunyuanVideo Overall Architecture**
 
@@ -107,7 +133,9 @@ the 3D VAE decoder.
   <img src="https://raw.githubusercontent.com/Tencent/HunyuanVideo/refs/heads/main/assets/overall.png"  height=300>
 </p>
 
+
 ## 🎉 **HunyuanVideo Key Features**
+
 ### **Unified Image and Video Generative Architecture**
 HunyuanVideo introduces the Transformer design and employs a Full Attention mechanism for unified image and video generation. 
 Specifically, we use a "Dual-stream to Single-stream" hybrid model design for video generation. In the dual-stream phase, video and text
@@ -128,7 +156,7 @@ and complex reasoning; (iii) MLLM can play as a zero-shot learner by following s
 </p>
 
 ### **3D VAE**
-HunyuanVideo trains a 3D VAE with CausalConv3D to compress pixel-space videos and images into a compact latent space. We set the compression ratios of video length, space, and channel to 4, 8, and 16 respectively. This can significantly reduce the number of tokens for the subsequent diffusion transformer model, allowing us to train videos at the original resolution and frame rate.
+HunyuanVideo trains a 3D VAE with CausalConv3D (Partially referred to [Open-Sora-Plan](https://github.com/PKU-YuanGroup/Open-Sora-Plan) ) to compress pixel-space videos and images into a compact latent space. We set the compression ratios of video length, space, and channel to 4, 8, and 16 respectively. This can significantly reduce the number of tokens for the subsequent diffusion transformer model, allowing us to train videos at the original resolution and frame rate.
 <p align="center">
   <img src="https://raw.githubusercontent.com/Tencent/HunyuanVideo/refs/heads/main/assets/3dvae.png"  height=150>
 </p>
@@ -139,6 +167,8 @@ To address the variability in linguistic style and length of user-provided promp
 We provide two rewrite modes: Normal mode and Master mode, which can be called using different prompts. The prompts are shown [here](hyvideo/prompt_rewrite.py). The Normal mode is designed to enhance the video generation model's comprehension of user intent, facilitating a more accurate interpretation of the instructions provided. The Master mode enhances the description of aspects such as composition, lighting, and camera movement, which leans towards generating videos with a higher visual quality. However, this emphasis may occasionally result in the loss of some semantic details. 
 
 The Prompt Rewrite Model can be directly deployed and inferred using the [Hunyuan-Large original code](https://github.com/Tencent/Tencent-Hunyuan-Large). We release the weights of the Prompt Rewrite Model [here](https://huggingface.co/Tencent/HunyuanVideo-PromptRewrite).
+
+
 
 ## 📈 Comparisons
 
@@ -174,6 +204,7 @@ To evaluate the performance of HunyuanVideo, we selected five strong baselines f
 </table>
 </p>
 
+
 ## 📜 Requirements
 
 The following table shows the requirements for running HunyuanVideo model (batch size = 1) to generate videos:
@@ -188,6 +219,8 @@ The following table shows the requirements for running HunyuanVideo model (batch
   * **Minimum**: The minimum GPU memory required is 60GB for 720px1280px129f and 45G for 544px960px129f.
   * **Recommended**: We recommend using a GPU with 80GB of memory for better generation quality.
 * Tested operating system: Linux
+
+
 
 ## 🛠️ Dependencies and Installation
 
@@ -261,7 +294,10 @@ docker run -itd --gpus all --init --net=host --uts=host --ipc=host --name hunyua
 
 The details of download pretrained models are shown [here](ckpts/README.md).
 
+
+
 ## 🔑 Single-gpu Inference
+
 We list the height/width/frame settings we support in the following table.
 
 |      Resolution       |           h/w=9:16           |    h/w=16:9     |     h/w=4:3     |     h/w=3:4     |     h/w=1:1     |
@@ -308,6 +344,7 @@ We list some more useful configurations for easy usage:
 |        `--seed`        |     None  |   The random seed for generating video, if None, we init a random seed    |
 |  `--use-cpu-offload`   |   False   |    Use CPU offload for the model load to save more memory, necessary for high-res video generation    |
 |     `--save-path`      | ./results |     Path to save the generated video      |
+
 
 
 ## 🚀 Parallel Inference on Multiple GPUs by xDiT
@@ -391,7 +428,40 @@ You can change the `--ulysses-degree` and `--ring-degree` to control the paralle
 </table>
 </p>
 
+
+
+## 🚀  FP8 Inference
+
+Using HunyuanVideo with FP8 quantized weights, which saves about 10GB of GPU memory. You can download the [weights](https://huggingface.co/tencent/HunyuanVideo/blob/main/hunyuan-video-t2v-720p/transformers/mp_rank_00_model_states_fp8.pt) and [weight scales](https://huggingface.co/tencent/HunyuanVideo/blob/main/hunyuan-video-t2v-720p/transformers/mp_rank_00_model_states_fp8_map.pt) from Huggingface.
+
+### Using Command Line
+
+Here, you must explicitly specify the FP8 weight path. For example, to generate a video with fp8 weights, you can use the following command:
+
+```bash
+cd HunyuanVideo
+
+DIT_CKPT_PATH={PATH_TO_FP8_WEIGHTS}/{WEIGHT_NAME}_fp8.pt
+
+python3 sample_video.py \
+    --dit-weight ${DIT_CKPT_PATH} \
+    --video-size 1280 720 \
+    --video-length 129 \
+    --infer-steps 50 \
+    --prompt "A cat walks on the grass, realistic style." \
+    --seed 42 \
+    --embedded-cfg-scale 6.0 \
+    --flow-shift 7.0 \
+    --flow-reverse \
+    --use-cpu-offload \
+    --use-fp8 \
+    --save-path ./results
+```
+
+
+
 ## 🔗 BibTeX
+
 If you find [HunyuanVideo](https://arxiv.org/abs/2412.03603) useful for your research and applications, please cite using this BibTeX:
 
 ```BibTeX
@@ -407,20 +477,15 @@ If you find [HunyuanVideo](https://arxiv.org/abs/2412.03603) useful for your res
 
 
 
-## 🧩 Projects that use HunyuanVideo
-
-If you develop/use HunyuanVideo in your projects, welcome to let us know.
-
-- ComfyUI (with support for F8 Inference and Video2Video Generation): [ComfyUI-HunyuanVideoWrapper](https://github.com/kijai/ComfyUI-HunyuanVideoWrapper) by [Kijai](https://github.com/kijai)
-
-
-
 ## Acknowledgements
 
 We would like to thank the contributors to the [SD3](https://huggingface.co/stabilityai/stable-diffusion-3-medium), [FLUX](https://github.com/black-forest-labs/flux), [Llama](https://github.com/meta-llama/llama), [LLaVA](https://github.com/haotian-liu/LLaVA), [Xtuner](https://github.com/InternLM/xtuner), [diffusers](https://github.com/huggingface/diffusers) and [HuggingFace](https://huggingface.co) repositories, for their open research and exploration.
 Additionally, we also thank the Tencent Hunyuan Multimodal team for their help with the text encoder. 
 
+
+
 ## Star History
+
 <a href="https://star-history.com/#Tencent/HunyuanVideo&Date">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Tencent/HunyuanVideo&type=Date&theme=dark" />
