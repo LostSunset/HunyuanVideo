@@ -41,6 +41,7 @@ This repo contains PyTorch model definitions, pre-trained weights and inference/
 
 ## 🔥🔥🔥 News!!
 
+* Mar 06, 2025: 🌅 We release the [HunyuanVideo-I2V](https://github.com/Tencent/HunyuanVideo-I2V), an image-to-video model based on HunyuanVideo.
 * Jan 13, 2025: 📈 We release the [Penguin Video Benchmark](https://github.com/Tencent/HunyuanVideo/blob/main/assets/PenguinVideoBenchmark.csv).
 * Dec 18, 2024: 🏃‍♂️ We release the [FP8 model weights](https://huggingface.co/tencent/HunyuanVideo/blob/main/hunyuan-video-t2v-720p/transformers/mp_rank_00_model_states_fp8.pt) of HunyuanVideo to save more GPU memory.
 * Dec 17, 2024: 🤗 HunyuanVideo has been integrated into [Diffusers](https://huggingface.co/docs/diffusers/main/api/pipelines/hunyuan_video).
@@ -68,6 +69,8 @@ If you develop/use HunyuanVideo in your projects, welcome to let us know.
 - Enhance-A-Video (Better Generated Video for Free): [Enhance-A-Video](https://github.com/NUS-HPC-AI-Lab/Enhance-A-Video) by [NUS-HPC-AI-Lab](https://ai.comp.nus.edu.sg/)
 - TeaCache (Cache-based Accelerate): [TeaCache](https://github.com/LiewFeng/TeaCache) by [Feng Liu](https://github.com/LiewFeng)
 - HunyuanVideoGP (GPU Poor version): [HunyuanVideoGP](https://github.com/deepbeepmeep/HunyuanVideoGP) by [DeepBeepMeep](https://github.com/deepbeepmeep)
+- RIFLEx (Video Length Extrapolation): [RIFLEx](https://riflex-video.github.io/) by Tsinghua University
+- HunyuanVideo Keyframe Control Lora: [hunyuan-video-keyframe-control-lora](https://github.com/dashtoon/hunyuan-video-keyframe-control-lora) by [dashtoon](https://github.com/dashtoon)
 
 
 
@@ -82,11 +85,10 @@ If you develop/use HunyuanVideo in your projects, welcome to let us know.
   - [x] Diffusers 
   - [x] FP8 Quantified weight
   - [x] Penguin Video Benchmark
-  - [ ] ComfyUI
-  - [ ] Multi-gpus PipeFusion inference (Low memory requirements)
-- HunyuanVideo (Image-to-Video Model)
-  - [ ] Inference 
-  - [ ] Checkpoints 
+  - [x] ComfyUI
+- [HunyuanVideo (Image-to-Video Model)](https://github.com/Tencent/HunyuanVideo-I2V)
+  - [X] Inference 
+  - [X] Checkpoints 
 
 
 
